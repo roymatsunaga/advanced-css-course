@@ -6,3 +6,196 @@ Medium green: #55c57a
 Dark green: #28b485
 
 */
+
+/*
+RESET
+
+This makes every browser render the page in the same way, known as 
+a cross-browser reset
+*/
+* {
+  margin:0;
+  padding:0;
+  box-sizing:border-box; /* https://css-tricks.com/box-sizing/ */
+}
+
+body {
+  font-family:"Lato", sans-serif;
+  font-weight:400;
+  font-size:16px;
+  line-height:1.7;
+  color:#777;
+  padding:30px;
+}
+
+.header {
+  /* set height to 95% of the viewport height */
+  height:95vh;
+  /* background image - both image from url and gradient */
+  background-image:linear-gradient(to right bottom, rgba(126, 213, 111, .8), rgba(40, 180, 131, .8)), url("../img/hero.jpg");
+  background-size:cover;  /* fit the element inside of the container */
+  background-position:top;  /* the top position of the image is static */
+  /* specify a polygon for the header */
+  clip-path:polygon(0 0, 100% 0, 100% 75vh, 0 100%);
+  position:relative;
+}
+
+.logo-box {
+  position:absolute;  /* parent has position:relative; */
+  top:40px;
+  left:40px;
+}
+
+#logo {
+  height:35px;
+  /* no need to specify the width, since the height is set */
+}
+
+.header-text-box {
+  position:absolute;
+  top:40%;
+  left:50%;
+  transform:translate(-50%,-50%);  /* shifting it by 50% of this element's width and height */
+  text-align:center;
+}
+
+#heading-primary {
+  /* make sure the container doesn't move/wiggle because of animations */
+  backface-visibility: hidden;
+  color:#fff;
+  margin-bottom:50px;
+  text-transform:uppercase;
+}
+
+#heading-primary .heading-primary-main {
+  animation-name:moveInLeft;
+  animation-duration:1s;
+  animation-timing-function:ease-out;
+  /* other options for animations
+    animation-delay:1s;
+    animation-iteration-count:3;
+  */
+  display:block;
+  font-size:60px;
+  font-weight:400;
+  letter-spacing:35px;
+}
+
+#heading-primary .heading-primary-sub {
+  animation-name:moveInRight;
+  animation-duration:1s;
+  animation-timing-function:ease-out;
+  display:block;
+  font-size:20px;
+  font-weight:700;
+  letter-spacing:17.4px;
+}
+
+/* animations using the @keyframes rule and animations property */
+@keyframes moveInLeft {
+  /* start */
+  0% {
+    opacity:0;
+    transform:translateX(-100px);  /* slide in from the left */
+  }
+  66.667% {
+    transform:translateX(5px);  /* make it bounce out */
+  }
+  /* finish */
+  100% {
+    opacity:1;
+    transform:translate(0);
+  }
+}
+
+@keyframes moveInRight {
+  /* start */
+  0% {
+    opacity:0;
+    transform:translateX(100px);  /* slide in from the left */
+  }
+  66.667% {
+    transform:translateX(-5px);  /* make it bounce out */
+  }
+  /* finish */
+  100% {
+    opacity:1;
+    transform:translate(0);
+  }
+}
+
+@keyframes moveInBottom {
+  /* start */
+  0% {
+    opacity:0;
+    transform:translateY(50px);  /* slide from bottom */
+  }
+  50% {
+    transform:translateY(-5px);
+  }
+  100% {
+    opacity:1;
+    transform:translate(0);
+  }
+}
+
+/* Buttons */
+/* the btn class with pseudo classes */
+.btn:link,  /* link that hasn't been visited yet */
+.btn:visited {
+  border-radius:50px;
+  display:inline-block;
+  padding:1em 2em;
+  position:relative;
+  text-transform:uppercase;
+  text-decoration:none;
+  transition:all .2s;  /* MUST be on the initial state */
+}
+
+.btn:hover {
+  box-shadow:0 10px 20px rgba(0,0,0,0.2);
+  transform:translateY(-3px);  /* shift up */
+}
+
+.btn:active {  /* active is when the button is clicked */
+  box-shadow:0 5px 10px rgba(0,0,0,.2);
+  transform:translate(-1px);  /* this will shift the button down by 2px */
+}
+
+.btn-white {
+  background-color:#fff;
+  color:#777;
+}
+
+/* using the after pseudo element */
+.btn::after {  /* double-colon since this is a pseudo element, not a pseudo-class */
+  border-radius:50px;
+  content:"";  /* MUST be specified */
+  display:inline-block;  /* same as its parent */
+  height:100%;
+  left:0;
+  position:absolute;
+  top:0;
+  transition:all .4s;
+  width:100%;
+  z-index:-1;
+}
+
+.btn-white::after {
+  background-color:#fff;
+}
+
+/* select the ::after pseudo element after button hover */
+.btn:hover::after {
+  opacity:0;
+  transform:scaleX(1.4) scaleY(1.6);
+}
+
+.btn-animated {
+  animation-name:moveInBottom;
+  animation-duration:.5s;
+  animation-timing-function:ease-out;
+  animation-delay: .75s;
+  /* alternative would be animation:moveInButton .5s ease-out .75s; */
+  animation-fill-mode:backwards;  /* since we added a delay, we need to apply the 0% styles before the animation starts */
+}
